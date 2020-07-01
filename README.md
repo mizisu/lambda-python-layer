@@ -14,9 +14,6 @@ AWS lambda layer build script for Python
  - Web Console
 
 ### AWS CLI
-#### Requirements
-- AWS CLI
-
 #### Upload zip to S3
 ```shell
 aws s3 cp py37-lambda-layer.zip s3://[BUCKET_NAME]/py37-lambda-layer.zip
