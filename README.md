@@ -10,26 +10,32 @@ AWS lambda layer build script for Python
 ```
 
 ## Usage
- - AWS CLI
+ - AWS CLI and jq
  - Web Console
 
-### AWS CLI
+### Using AWS CLI and jq
 #### Upload zip to S3
+- BUCKET_NAME: 
 ```shell
 aws s3 cp py37-lambda-layer.zip s3://[BUCKET_NAME]/py37-lambda-layer.zip
 ```
 #### Create lambda layer
+You can get layer ARN after running script
+- BUCKET_NAME:
+- LAYER_NAME:
 ```shell
 aws lambda publish-layer-version \
     --layer-name [LAYER_NAME] \
     --description "Python layer created by script" \
     --content S3Bucket=[BUCKET_NAME],S3Key=py37-lambda-layer.zip \
-    --compatible-runtimes python3.7
+    --compatible-runtimes python3.7 | jq .LayerVersionArn
 ```
 #### Create function
+- FUNCTION_NAME
+- LAYER_ARN
 ```shell
 aws lambda create-function --function-name [FUNCTION_NAME] \
---layers arn:aws:lambda:us-east-2:123456789012:layer:my-layer:3
+--layers [LAYER_ARN]
 ```
 
  TODO
